@@ -1,0 +1,3 @@
+rootProject.name = 'Dungeons5e'
+
+include ':app'
