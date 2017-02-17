@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, StatusBar} from 'react-native';
+import {AppRegistry, Text, View, StatusBar, ScrollView} from 'react-native';
 
 import {TopNavigation} from './common/components/TopNavigation'
+import {BottomNavigation} from './common/components/BottomNavigation'
+
 
 var StyleSheet = require('./common/XStyleSheet');
 
@@ -9,17 +11,20 @@ export default class Dungeons5e extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TopNavigation name="D&D 5e" statusColor="#d32f2f" menuColor=""/>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit dungeons5e.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                </Text>
+                <TopNavigation name="Character Name"/>
+                <ScrollView style={styles.inner}>
+                    <Text style={styles.welcome}>
+                        Welcome to React Native!
+                    </Text>
+                    <Text style={styles.instructions}>
+                        To get started, edit dungeons5e.js
+                    </Text>
+                    <Text style={styles.instructions}>
+                        Double tap R on your keyboard to reload,{'\n'}
+                        Shake or press menu button for dev menu
+                    </Text>
+                </ScrollView>
+                <BottomNavigation/>
             </View>
         );
     }
@@ -28,16 +33,19 @@ export default class Dungeons5e extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
+        flexDirection: 'column'
+    },
+    inner: {
+      padding: 16,
     },
     welcome: {
         fontSize: 30,
         textAlign: 'center',
-        margin: 10,
+        margin: 0,
         color: "#000"
     },
     instructions: {
-        textAlign: 'left',
+        textAlign: 'center',
         color: '#000',
         marginBottom: 5
     }
