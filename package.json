@@ -7,8 +7,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "native-base": "2.0.7",
     "react": "15.4.2",
     "react-native": "0.41.2",
+    "react-native-admob": "1.1.5",
+    "react-native-material-ui": "1.7.0",
+    "react-native-router-flux": "3.37.0",
     "react-native-vector-icons": "4.0.0"
   },
   "devDependencies": {
