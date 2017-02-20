@@ -48,4 +48,12 @@ export default class Dungeons5e extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'column'
+    }
+});
+
 AppRegistry.registerComponent('Dungeons5e', () => Dungeons5e);
