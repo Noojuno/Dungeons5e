@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Text,
-    ScrollView,
-    TextInput,
-    StyleSheet
-} from 'react-native';
+import {Text, ScrollView, TextInput, StyleSheet} from 'react-native';
 
 import Container from "../../components/Container";
 

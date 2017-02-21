@@ -25,6 +25,7 @@ import FEColors from '../../FEColors'
 import {CharacterOverview} from './CharacterOverview'
 import {CharacterStats} from './CharacterStats'
 import {CharacterSkills} from './CharacterSkills'
+import {CharacterItems} from './CharacterItems'
 
 export class CharacterPage extends Component {
     constructor(props) {
@@ -67,16 +68,21 @@ export class CharacterPage extends Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>Character Name</Title>
-                        <Subtitle>Class</Subtitle>
+                        <Title>Ashhearth</Title>
+                        <Subtitle>Warlock</Subtitle>
                     </Body>
+                    <Right>
+                        <Button transparent>
+                            <Icon name='more'/>
+                        </Button>
+                    </Right>
                 </Header>
                 <Router>
                     <Scene key="characterPageRoot" hideNavBar>
                         <Scene key="overview" component={CharacterOverview} initial={true}/>
                         <Scene key="stats" component={CharacterStats}/>
                         <Scene key="skills" component={CharacterSkills}/>
-                        <Scene key="items" component={CharacterSkills}/>
+                        <Scene key="items" component={CharacterItems}/>
                     </Scene>
                 </Router>
                 <AdMobBanner bannerSize="smartBannerLandscape" adUnitID="ca-app-pub-2417893763284111/8886434387" testDeviceID="5AD4506F18FA8B5A4A528F379E3C746B" didFailToReceiveAdWithError={this.bannerError}/>
