@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {View, StatusBar, ScrollView, TextInput, Navigator} from 'react-native';
-import {AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
+import React, {Component, PureComponent} from 'react';
+import {StyleSheet, StatusBar} from 'react-native';
+import {AdMobBanner, AdMobInterstitial} from 'react-native-admob'
 import {
     Container,
     Header,
@@ -9,8 +9,6 @@ import {
     Left,
     Right,
     Body,
-    Icon,
-    StyleProvider,
     Footer,
     FooterTab,
     Text,
@@ -18,95 +16,228 @@ import {
     Subtitle
 } from 'native-base';
 
-import {Scene, Router, Actions} from 'react-native-router-flux';
+import {TabNavigator, TabView} from 'react-navigation';
 
-import FEColors from '../../FEColors'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {CharacterOverview} from './CharacterOverview'
-import {CharacterStats} from './CharacterStats'
+import {CharacterSpells} from './CharacterSpells'
 import {CharacterSkills} from './CharacterSkills'
 import {CharacterItems} from './CharacterItems'
+import {CharacterTraits} from './CharacterTraits'
 
-export class CharacterPage extends Component {
+import FEColors from '../../FEColors';
+
+var characterTemplate = {
+    "name": "Ronald McDonald",
+    "class": "Ranger",
+    "xp": 0,
+    "level": 99,
+    "stats": {
+        "baseHealth": 11,
+        "currentHealth": 11,
+        "baseAC": 12,
+        "initiative": 3,
+        "speed": 35,
+        "passivePerception": 12,
+        "abilities": {
+            "strength": {
+                "name": "Strength",
+                "score": 12,
+                "savingThrow": 3,
+                "skills": {
+                    "Athletics": {
+                        "modifier": 2,
+                        "trained": true
+                    }
+                }
+            },
+            "intelligence": {
+                "name": "Intelligence",
+                "score": 10,
+                "savingThrow": 0,
+                "skills": {
+                    "Arcana": {
+                        "modifier": 0,
+                        "trained": false
+                    },
+                    "History": {
+                        "modifier": 0,
+                        "trained": false
+                    },
+                    "Investigation": {
+                        "modifier": 2,
+                        "trained": true
+                    },
+                    "Nature": {
+                        "modifier": 2,
+                        "trained": true
+                    },
+                    "Religion": {
+                        "modifier": 0,
+                        "trained": false
+                    }
+                }
+            },
+            "dexterity": {
+                "name": "Dexterity",
+                "score": 17,
+                "savingThrow": 5,
+                "skills": {
+                    "Acrobatics": {
+                        "modifier": 3,
+                        "trained": false
+                    },
+                    "Sleight of Hand": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Stealth": {
+                        "modifier": 2,
+                        "trained": true
+                    }
+                }
+            },
+            "wisdom": {
+                "name": "Wisdom",
+                "score": 15,
+                "savingThrow": 2,
+                "skills": {
+                    "Animal Handling": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Insight": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Medicine": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Perception": {
+                        "modifier": 4,
+                        "trained": true
+                    },
+                    "Survival": {
+                        "modifier": 4,
+                        "trained": false
+                    }
+                }
+            },
+            "constitution": {
+                "name": "Constitution",
+                "score": 13,
+                "savingThrow": 1
+            },
+            "charisma": {
+                "name": "Charisma",
+                "score": 8,
+                "savingThrow": -1,
+                "skills": {
+                    "Deception": {
+                        "modifier": -1,
+                        "trained": false
+                    },
+                    "Intimidation": {
+                        "modifier": -1,
+                        "trained": false
+                    },
+                    "Performance": {
+                        "modifier": -1,
+                        "trained": false
+                    },
+                    "Persuasion": {
+                        "modifier": -1,
+                        "trained": false
+                    }
+                }
+            }
+        }
+    }
+};
+
+const CharacterTabs = TabNavigator({
+    Overview: {
+        screen: CharacterOverview
+    },
+    Skills: {
+        screen: CharacterSkills
+    },
+    Spells: {
+        screen: CharacterSpells
+    },
+    Items: {
+        screen: CharacterItems
+    },
+    Traits: {
+        screen: CharacterTraits
+    }
+}, {
+    tabBarComponent: TabView.TabBarBottom,
+    tabBarPosition: 'bottom',
+    tabBarOptions: {
+        style: {
+            backgroundColor: FEColors.primaryColor,
+            paddingBottom: 4
+        },
+        labelStyle: {
+          fontSize: 12
+        },
+        activeTintColor: FEColors.navTextActive,
+        inactiveTintColor: FEColors.navText
+    }
+});
+
+export class CharacterPage extends PureComponent {
+    static navigationOptions = {
+        title: 'Ronald McDonald - Level 1 Hunter',
+        header: {
+            style: {
+                backgroundColor: FEColors.primaryColor
+            },
+            tintColor: FEColors.navTitleText
+        }
+    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            overview: true,
-            stats: false,
-            skills: false,
-            tab4: false
-        };
-    }
 
-    toggleOverview() {
-        this.setState({overview: true, stats: false, skills: false, items: false});
-        Actions.overview({type: 'reset'});
-    }
-
-    toggleStats() {
-        this.setState({overview: false, stats: true, skills: false, items: false});
-        Actions.stats({type: 'reset'});
-    }
-
-    toggleSkills() {
-        this.setState({overview: false, stats: false, skills: true, items: false});
-        Actions.skills({type: 'reset'});
-    }
-
-    toggleItems() {
-        this.setState({overview: false, stats: false, skills: false, items: true});
-        Actions.items({type: 'reset'});
+        // AdMobInterstitial.setAdUnitID('ca-app-pub-2417893763284111/1363167587');
+        // AdMobInterstitial.requestAd(err => AdMobInterstitial.showAd());
     }
 
     render() {
         return (
             <Container>
-                <Header>
-                    <Left>
-                        <Button transparent>
-                            <Icon name='arrow-back'/>
+              <StatusBar backgroundColor={FEColors.secondaryColor} barStyle="light-content"/>
+                {/* <Header hasSubtitle>
+                    <Left size={1}>
+                        <Button transparent onPress={() => {
+                            this.setState({selectedTab: 'items'})
+                        }}>
+                            <Icon name='arrow-left'/>
                         </Button>
                     </Left>
-                    <Body>
-                        <Title>Ashhearth</Title>
-                        <Subtitle>Warlock</Subtitle>
+                    <Body size={10}>
+                        <Title>Character Name</Title>
+                        <Subtitle>Level 1 Class</Subtitle>
                     </Body>
-                    <Right>
+                    <Right size={1}>
                         <Button transparent>
-                            <Icon name='more'/>
+                            <Icon name='dots-vertical'/>
                         </Button>
                     </Right>
-                </Header>
-                <Router>
-                    <Scene key="characterPageRoot" hideNavBar>
-                        <Scene key="overview" component={CharacterOverview} initial={true}/>
-                        <Scene key="stats" component={CharacterStats}/>
-                        <Scene key="skills" component={CharacterSkills}/>
-                        <Scene key="items" component={CharacterItems}/>
-                    </Scene>
-                </Router>
-                <AdMobBanner bannerSize="smartBannerLandscape" adUnitID="ca-app-pub-2417893763284111/8886434387" testDeviceID="5AD4506F18FA8B5A4A528F379E3C746B" didFailToReceiveAdWithError={this.bannerError}/>
-                <Footer>
-                    <FooterTab>
-                        <Button active={this.state.overview} onPress={() => this.toggleOverview()}>
-                            <Icon name="person"/>
-                            <Text>Character</Text>
-                        </Button>
-                        <Button active={this.state.stats} onPress={() => this.toggleStats()}>
-                            <Icon name="stats"/>
-                            <Text>Stats</Text>
-                        </Button>
-                        <Button active={this.state.skills} onPress={() => this.toggleSkills()}>
-                            <Icon active name="book"/>
-                            <Text>Skills</Text>
-                        </Button>
-                        <Button active={this.state.items} onPress={() => this.toggleItems()}>
-                            <Icon name="basket"/>
-                            <Text>Items</Text>
-                        </Button>
-                    </FooterTab>
-                </Footer>
+                </Header> */}
+                {/* <CharacterOverview character={characterTemplate}/> */}
+                <CharacterTabs screenProps={{
+                    character: characterTemplate
+                }}/>
             </Container>
         );
     }
 }
+
+var buttonStyle = {
+    padding: 8
+};

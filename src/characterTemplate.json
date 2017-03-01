@@ -1,0 +1,128 @@
+{
+    "name": "Ronald McDonald",
+    "class": "Ranger",
+    "xp": 0,
+    "level": 99,
+    "stats": {
+        "baseHealth": 11,
+        "currentHealth": 11,
+        "baseAC": 12,
+        "initiative": 3,
+        "speed": 35,
+        "passivePerception": 12,
+        "abilities": {
+            "strength": {
+                "name": "Strength",
+                "score": 12,
+                "savingThrow": 3,
+                "skills": {
+                    "Athletics": {
+                        "modifier": 2,
+                        "trained": true
+                    }
+                }
+            },
+            "intelligence": {
+                "name": "Intelligence",
+                "score": 10,
+                "savingThrow": 0,
+                "skills": {
+                    "Arcana": {
+                        "modifier": 0,
+                        "trained": false
+                    },
+                    "History": {
+                        "modifier": 0,
+                        "trained": false
+                    },
+                    "Investigation": {
+                        "modifier": 2,
+                        "trained": true
+                    },
+                    "Nature": {
+                        "modifier": 2,
+                        "trained": true
+                    },
+                    "Religion": {
+                        "modifier": 0,
+                        "trained": false
+                    }
+                }
+            },
+            "dexterity": {
+                "name": "Dexterity",
+                "score": 17,
+                "savingThrow": 5,
+                "skills": {
+                    "Acrobatics": {
+                        "modifier": 3,
+                        "trained": false
+                    },
+                    "Sleight of Hand": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Stealth": {
+                        "modifier": 2,
+                        "trained": true
+                    }
+                }
+            },
+            "wisdom": {
+                "name": "Wisdom",
+                "score": 15,
+                "savingThrow": 2,
+                "skills": {
+                    "Animal Handling": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Insight": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Medicine": {
+                        "modifier": 2,
+                        "trained": false
+                    },
+                    "Perception": {
+                        "modifier": 4,
+                        "trained": true
+                    },
+                    "Survival": {
+                        "modifier": 4,
+                        "trained": false
+                    }
+                }
+            },
+            "constitution": {
+                "name": "Constitution",
+                "score": 13,
+                "savingThrow": 1
+            },
+            "charisma": {
+                "name": "Charisma",
+                "score": 8,
+                "savingThrow": -1,
+                "skills": {
+                    "Deception": {
+                        "modifier": -1,
+                        "trained": false
+                    },
+                    "Intimidation": {
+                        "modifier": -1,
+                        "trained": false
+                    },
+                    "Performance": {
+                        "modifier": -1,
+                        "trained": false
+                    },
+                    "Persuasion": {
+                        "modifier": -1,
+                        "trained": false
+                    }
+                }
+            }
+        }
+    }
+}

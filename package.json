@@ -7,16 +7,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "babel-plugin-transform-remove-console": "6.8.0",
     "native-base": "2.0.7",
     "react": "15.4.2",
+    "react-addons-perf": "15.4.2",
+    "react-dom": "15.4.2",
     "react-native": "0.41.2",
     "react-native-admob": "1.1.5",
-    "react-native-material-ui": "1.7.0",
+    "react-native-code-push": "1.17.0-beta",
     "react-native-router-flux": "3.37.0",
-    "react-native-vector-icons": "4.0.0"
+    "react-native-vector-icons": "4.0.0",
+    "react-navigation": "1.0.0-beta.5",
+    "react-redux": "5.0.2",
+    "react-swipeable-views-native": "0.10.5",
+    "realm": "1.0.2",
+    "redux": "3.6.0",
+    "redux-persist": "4.4.2",
+    "redux-thunk": "2.2.0"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
+    "babel-preset-es2017": "6.22.0",
     "babel-preset-react-native": "1.9.1",
     "jest": "18.1.0",
     "react-test-renderer": "15.4.2"

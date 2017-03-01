@@ -1,45 +1,64 @@
-import React, {Component, PropTypes} from 'react';
-import {AppRegistry, StatusBar, UIManager, StyleSheet} from 'react-native';
-import {BottomNavigation, ThemeProvider, Toolbar} from 'react-native-material-ui';
-import {AdMobBanner, AdMobInterstitial, PublisherBanner} from 'react-native-admob'
-import {Scene, Router} from 'react-native-router-flux';
+import React, {Component} from 'react';
+import {AppRegistry, AsyncStorage} from 'react-native';
 
-import {
-    Container,
-    Header,
-    Title,
-    Button,
-    Left,
-    Right,
-    Body,
-    Icon,
-    StyleProvider,
-    Footer,
-    FooterTab,
-    Text
-} from 'native-base';
+//NAVIGATION AND STATE MANAGEMENT
+import {StackNavigator, addNavigationHelpers} from 'react-navigation';
+import {createStore, combineReducers} from 'redux';
+import {Provider, connect} from 'react-redux';
+import {persistStore, autoRehydrate} from 'redux-persist';
 
+//THEMEING AND COLOURS
 import FEColors from './common/FEColors';
 
+//PAGES
+import {HomePage} from './common/pages/home/HomePage'
 import {CharacterPage} from './common/pages/characterSheet/CharacterPage'
 
+//DEVELOPMENT RELATED VARIABLES
+if (!__DEV__) {
+    console = {};
+    console.log = () => {};
+    console.error = () => {};
+}
+console.ignoredYellowBox = ['Behaviour of screenProps has changed'];
+
+const StackNav = StackNavigator({
+    Home: {
+        screen: HomePage
+    },
+    Character: {
+        screen: CharacterPage
+    }
+});
+
+const navReducer = (state, action) => {
+    const newState = StackNav.router.getStateForAction(action, state);
+    return newState || state;
+};
+
+const appReducer = combineReducers({nav: navReducer});
+
+class StackNavStateComp extends Component {
+    render() {
+        return (<StackNav navigation={addNavigationHelpers({dispatch: this.props.dispatch, state: this.props.nav})}/>);
+    }
+}
+const StackNavState = connect(state => ({nav: state.nav}))(StackNavStateComp);
+
 export default class Dungeons5e extends Component {
+    store = createStore(appReducer, undefined, autoRehydrate());
+
+    componentDidMount() {
+        persistStore(this.store, {storage: AsyncStorage});
+    }
+
     render() {
         return (
-            <Router>
-                <Scene key="root">
-                    <Scene key="characterPage" component={CharacterPage} hideNavBar initial={true} title="Character Page"/>
-                </Scene>
-            </Router>
+            <Provider store={this.store}>
+                <StackNavState/>
+            </Provider>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column'
-    }
-});
 
 AppRegistry.registerComponent('Dungeons5e', () => Dungeons5e);
